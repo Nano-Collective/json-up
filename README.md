@@ -1,6 +1,8 @@
 # @nanocollective/json-up
 
-A TypeScript JSON migration tool with Zod schema validation.
+Transform & migrate JSON data to new schemas, with type-safe validation using Zod.
+
+Useful for local JSON that evolves over time, like app settings, saved documents, or cached data.
 
 ## Installation
 
@@ -8,111 +10,59 @@ A TypeScript JSON migration tool with Zod schema validation.
 npm install @nanocollective/json-up zod
 ```
 
-## Usage
+[Docs](./docs/index.md) | [Getting Started](./docs/getting-started.md) | [API Reference](./docs/api-reference.md)
 
-### Define Migrations
+## What is a migration?
 
-Use `createMigrations()` for type-safe migration chains:
+A migration is a step that transforms your data from one version to the next.
+When your data structure changes over time, migrations let you upgrade old
+data to match your current format.
+
+## Example
+
+Imagine you have user profiles stored as JSON, saved to a file.
+
+Originally, you stored a single `name` field.
+
+Now, in your latest app, you want to split it into `firstName` and `lastName`.
+
+You could write `if` statements, but this gets risky as more changes come along.
+
+So how can you safely update the state?
 
 ```typescript
 import { createMigrations, migrate } from "@nanocollective/json-up";
 import { z } from "zod";
 
+// Define your migrations
 const migrations = createMigrations()
   .add({
     version: 1,
     schema: z.object({ name: z.string() }),
-    up: (state) => ({ name: state.name ?? "" }),
-    //    ^? unknown
+    up: (data) => ({ name: data.name ?? "Unknown" }),
   })
   .add({
     version: 2,
-    schema: z.object({ title: z.string() }),
-    up: (state) => ({ title: state.name }),
-    //    ^? { name: string }
+    schema: z.object({ firstName: z.string(), lastName: z.string() }),
+    up: (data) => {
+      const [firstName = "", lastName = ""] = data.name.split(" ");
+      return { firstName, lastName };
+    },
   })
   .build();
-```
 
-Each `.add()` call infers the input type from the previous migration's output schema.
+// Migrate old data to the latest version
+const old = { _version: 1, name: "Jane Doe" }
 
-### Run Migrations
-
-```typescript
 const result = migrate({
-  state: { _version: 1, name: "hello" },
+  state: old,
   migrations,
 });
-//    ^? { _version: 2, title: string }
+
+console.log(result);
+// { _version: 2, firstName: "Jane", lastName: "Doe" }
 ```
 
-The return type is inferred from the last migration's schema.
-
-### Custom Version Key
-
-```typescript
-const result = migrate({
-  state: { version: 1, name: "hello" },
-  migrations,
-  key: "version",
-});
-```
-
-### Standalone Migrations
-
-For individual migrations without chaining:
-
-```typescript
-import { createMigration } from "@nanocollective/json-up";
-
-const migration = createMigration({
-  version: 1,
-  schema: z.object({ name: z.string() }),
-  up: () => ({ name: "" }),
-});
-```
-
-## API
-
-### `createMigrations()`
-
-Creates a builder for type-safe migration chains.
-
-- `.add(migration)` - Add a migration, returns new builder with updated types
-- `.build()` - Returns the migrations array
-
-### `migrate(options)`
-
-Runs migrations on a state object.
-
-**Options:**
-- `state` - The object to migrate
-- `migrations` - Array of migrations from `createMigrations().build()`
-- `key` - Version field name (default: `"_version"`)
-
-**Returns:** Migrated state typed to the last migration's output schema, with version field included
-
-### `createMigration(migration)`
-
-Type helper for standalone migrations.
-
-## Error Handling
-
-- `MigrationError` - Thrown when `up()` function fails
-- `ValidationError` - Thrown when schema validation fails
-- `VersionError` - Thrown for invalid migration configuration
-
-```typescript
-import { MigrationError, ValidationError, VersionError } from "@nanocollective/json-up";
-
-try {
-  migrate({ state, migrations });
-} catch (error) {
-  if (error instanceof ValidationError) {
-    console.error("Schema validation failed:", error.issues);
-  }
-}
-```
 
 ## License
 
