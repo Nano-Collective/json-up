@@ -1,0 +1,18 @@
+# Source files
+src/
+tsconfig.json
+biome.json
+knip.json
+
+# Tests
+*.spec.ts
+coverage/
+
+# CI/CD
+.github/
+scripts/
+
+# Development
+.gitignore
+.env*
+*.log
