@@ -1,8 +1,14 @@
-# @nanocollective/json-up
+# json-up
 
-Transform & migrate JSON data to new schemas, with type-safe validation using Zod.
+A fast, type-safe JSON migration tool with Zod schema validation.
 
-Useful for local JSON that evolves over time, like app settings, saved documents, or cached data.
+## Features
+
+- **Type-safe migrations for JSON** with full TypeScript inference
+- **Zod schema validation** at every step
+- **Fluent builder API** for migration chains
+- **Automatic version tracking**
+- **Zero runtime dependencies** (only Zod as peer)
 
 ## Installation
 
@@ -10,31 +16,12 @@ Useful for local JSON that evolves over time, like app settings, saved documents
 npm install @nanocollective/json-up zod
 ```
 
-[Docs](./docs/index.md) | [Getting Started](./docs/getting-started.md) | [API Reference](./docs/api-reference.md)
-
-## What is a migration?
-
-A migration is a step that transforms your data from one version to the next.
-When your data structure changes over time, migrations let you upgrade old
-data to match your current format.
-
-## Example
-
-Imagine you have user profiles stored as JSON, saved to a file.
-
-Originally, you stored a single `name` field.
-
-Now, in your latest app, you want to split it into `firstName` and `lastName`.
-
-You could write `if` statements, but this gets risky as more changes come along.
-
-So how can you safely update the state?
+## Quick Start
 
 ```typescript
 import { createMigrations, migrate } from "@nanocollective/json-up";
 import { z } from "zod";
 
-// Define your migrations
 const migrations = createMigrations()
   .add({
     version: 1,
@@ -51,11 +38,8 @@ const migrations = createMigrations()
   })
   .build();
 
-// Migrate old data to the latest version
-const old = { _version: 1, name: "Jane Doe" }
-
 const result = migrate({
-  state: old,
+  state: { _version: 1, name: "Jane Doe" },
   migrations,
 });
 
@@ -63,7 +47,19 @@ console.log(result);
 // { _version: 2, firstName: "Jane", lastName: "Doe" }
 ```
 
+## Documentation
 
-## License
+For full documentation, see [docs/index.md](docs/index.md):
 
-MIT
+- [Getting Started](docs/getting-started.md)
+- [API Reference](docs/api-reference.md)
+- [Error Handling](docs/error-handling.md)
+- [Examples](docs/examples.md)
+
+## Community
+
+We're a small community-led team building local and privacy-first AI solutions under the [Nano Collective](https://nanocollective.org).
+
+- [Contributing Guide](CONTRIBUTING.md)
+- [Discord Server](https://discord.gg/ktPDV6rekE)
+- [GitHub Issues](https://github.com/nanocollective/json-up/issues)
