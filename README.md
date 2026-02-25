@@ -62,4 +62,4 @@ We're a small community-led team building local and privacy-first AI solutions u
 
 - [Contributing Guide](CONTRIBUTING.md)
 - [Discord Server](https://discord.gg/ktPDV6rekE)
-- [GitHub Issues](https://github.com/nanocollective/json-up/issues)
+- [GitHub Issues](https://github.com/nano-collective/json-up/issues)

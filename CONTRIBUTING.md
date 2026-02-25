@@ -19,7 +19,7 @@ Thanks for your interest in contributing to json-up! We welcome contributions fr
 
 ### Finding Work
 
-Browse our [open issues](https://github.com/nanocollective/json-up/issues). If you find an unassigned issue you'd like to work on, comment on it to let us know you're picking it up.
+Browse our [open issues](https://github.com/nano-collective/json-up/issues). If you find an unassigned issue you'd like to work on, comment on it to let us know you're picking it up.
 
 ### Working on an Issue
 
