@@ -1,6 +1,6 @@
 {
 	"name": "@nanocollective/json-up",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "A TypeScript JSON migration tool with Zod schema validation",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -30,7 +30,7 @@
 		"prepublishOnly": "npm run build && npm run test:all"
 	},
 	"peerDependencies": {
-		"zod": "^3.0.0"
+		"zod": "^3.0.0 || ^4.0.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.11",
@@ -39,7 +39,7 @@
 		"knip": "^5.80.2",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
-		"zod": "^3.24.0"
+		"zod": "^4.3.6"
 	},
 	"ava": {
 		"extensions": {
