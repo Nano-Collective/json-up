@@ -1,6 +1,6 @@
 # Error Handling
 
-json-up provides three error types to help you understand what went wrong during migration.
+json-up provides three error types to help you understand what went wrong during migration. Both `migrate()` and `migrateAsync()` throw the same error types.
 
 ## Error types
 

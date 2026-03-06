@@ -237,3 +237,36 @@ const result = migrate({
 });
 // { _version: 1, name: "Jane" }
 ```
+
+## Async migrations
+
+When migrations need to perform async operations, use `createAsyncMigrations()` and `migrateAsync()`:
+
+```typescript
+import { createAsyncMigrations, migrateAsync } from "@nanocollective/json-up";
+import { z } from "zod";
+
+const migrations = createAsyncMigrations()
+  .add({
+    version: 1,
+    schema: z.object({ name: z.string() }),
+    up: (data) => ({ name: data.name ?? "" }), // sync is fine too
+  })
+  .add({
+    version: 2,
+    schema: z.object({ name: z.string(), key: z.string() }),
+    up: async (data) => ({
+      name: data.name,
+      key: await generateKey(), // async operation
+    }),
+  })
+  .build();
+
+const result = await migrateAsync({
+  state: { _version: 1, name: "Jane" },
+  migrations,
+});
+// { _version: 2, name: "Jane", key: "generated-key-value" }
+```
+
+You can freely mix sync and async `up()` functions in the same chain. Only migrations that actually need async operations need to use `async`.
