@@ -7,6 +7,7 @@ A fast, type-safe JSON migration tool with Zod schema validation.
 - **Type-safe migrations for JSON** with full TypeScript inference
 - **Zod schema validation** at every step
 - **Fluent builder API** for migration chains
+- **Async migration support** for migrations that need async operations
 - **Automatic version tracking**
 - **Zero runtime dependencies** (only Zod as peer)
 
@@ -45,6 +46,33 @@ const result = migrate({
 
 console.log(result);
 // { _version: 2, firstName: "Jane", lastName: "Doe" }
+```
+
+### Async migrations
+
+When your migrations need to perform async operations, use the async API:
+
+```typescript
+import { createAsyncMigrations, migrateAsync } from "@nanocollective/json-up";
+import { z } from "zod";
+
+const migrations = createAsyncMigrations()
+  .add({
+    version: 1,
+    schema: z.object({ name: z.string() }),
+    up: (data) => ({ name: data.name ?? "" }),
+  })
+  .add({
+    version: 2,
+    schema: z.object({ name: z.string(), key: z.string() }),
+    up: async (data) => ({
+      name: data.name,
+      key: await generateKey(),
+    }),
+  })
+  .build();
+
+const result = await migrateAsync({ state, migrations });
 ```
 
 ## Documentation

@@ -99,6 +99,6 @@ const result = migrate({
 
 ## Next steps
 
-- [API Reference](./api-reference.md) - Learn about all available functions
+- [API Reference](./api-reference.md) - Learn about all available functions, including async variants
 - [Error Handling](./error-handling.md) - Handle migration failures gracefully
-- [Examples](./examples.md) - See common migration patterns
+- [Examples](./examples.md) - See common migration patterns, including async migrations

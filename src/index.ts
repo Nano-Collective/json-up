@@ -1,15 +1,19 @@
 // Types
 
 // Functions
-export { createMigration } from "./create-migration.js";
-export { createMigrations } from "./create-migrations.js";
+export { createAsyncMigration, createMigration } from "./create-migration.js";
+export { createAsyncMigrations, createMigrations } from "./create-migrations.js";
 // Errors
 export { MigrationError, ValidationError, VersionError } from "./errors.js";
-export type { MigrateOptions } from "./migrate.js";
-export { migrate } from "./migrate.js";
+export type { MigrateAsyncOptions, MigrateOptions } from "./migrate.js";
+export { migrate, migrateAsync } from "./migrate.js";
 export type {
+	AnyAsyncMigration,
 	AnyMigration,
+	AsyncMigration,
+	InferAsyncMigrationInput,
 	InferMigrationInput,
+	LastAsyncMigrationOutput,
 	LastMigrationOutput,
 	Migration,
 	WithVersion,

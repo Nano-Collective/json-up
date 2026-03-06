@@ -16,7 +16,7 @@ Start here. Learn what migrations are, install the library, and build your first
 
 ### [API Reference](./api-reference.md)
 
-Complete reference for all functions: `createMigrations()`, `migrate()`, `createMigration()`, and their options.
+Complete reference for all functions: `createMigrations()`, `migrate()`, `createMigration()`, and their async counterparts `createAsyncMigrations()`, `migrateAsync()`, `createAsyncMigration()`.
 
 ### [Error Handling](./error-handling.md)
 
