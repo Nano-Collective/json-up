@@ -37,6 +37,43 @@ export type LastMigrationOutput<T extends readonly AnyMigration[]> = T extends r
 	: unknown;
 
 /**
+ * A migration that can have an async `up()` function.
+ * Sync `up()` functions are also accepted (T is a subtype of T | Promise<T>).
+ */
+export type AsyncMigration<TInput = unknown, TOutput extends z.ZodTypeAny = z.ZodTypeAny> = {
+	version: number;
+	schema: TOutput;
+	up: (state: TInput) => z.infer<TOutput> | Promise<z.infer<TOutput>>;
+};
+
+/**
+ * An async migration with any input/output types. Used for array constraints.
+ */
+// biome-ignore lint/suspicious/noExplicitAny: Required for variance in generic type constraints
+export type AnyAsyncMigration = AsyncMigration<any, any>;
+
+/**
+ * Infers the input type of the first async migration in a tuple.
+ */
+export type InferAsyncMigrationInput<T extends readonly AnyAsyncMigration[]> = T extends readonly [
+	AsyncMigration<infer TInput, z.ZodTypeAny>,
+	...AnyAsyncMigration[],
+]
+	? TInput
+	: unknown;
+
+/**
+ * Infers the output type of the last async migration in a tuple.
+ */
+export type LastAsyncMigrationOutput<T extends readonly AnyAsyncMigration[]> = T extends readonly [
+	// biome-ignore lint/suspicious/noExplicitAny: Required for pattern matching with variance
+	...any[],
+	AsyncMigration<infer _TInput, infer TOutput>,
+]
+	? z.infer<TOutput>
+	: unknown;
+
+/**
  * Helper type to add version key to an object type.
  */
 export type WithVersion<T, K extends string> = T & { [P in K]: number };
