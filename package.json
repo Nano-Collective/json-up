@@ -1,6 +1,6 @@
 {
 	"name": "@nanocollective/json-up",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "A TypeScript JSON migration tool with Zod schema validation",
 	"type": "module",
 	"main": "./dist/index.js",
