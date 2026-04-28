@@ -39,7 +39,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.11",
 		"@types/node": "^22.0.0",
-		"ava": "^5.3.1",
+		"ava": "^8.0.0",
 		"c8": "^11.0.0",
 		"knip": "^5.80.2",
 		"tsx": "^4.21.0",
