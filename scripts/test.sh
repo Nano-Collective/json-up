@@ -2,21 +2,21 @@
 set -e
 
 echo "🔍 Checking formatting..."
-npx biome check --write .
+npm run test:format
 
 echo "📝 Type checking..."
-npx tsc --noEmit
+npm run test:types
 
 echo "🔎 Linting..."
-npx biome lint .
+npm run test:lint
 
-echo "🧪 Running tests..."
-npx ava
+echo "🧪 Running tests with coverage..."
+npm run test:ava:coverage
 
 echo "🔬 Checking for unused exports..."
-npx knip
+npm run test:knip
 
 echo "🔒 Auditing dependencies..."
-npm audit --audit-level=high || true
+npm run test:audit || true
 
 echo "✅ All checks passed!"

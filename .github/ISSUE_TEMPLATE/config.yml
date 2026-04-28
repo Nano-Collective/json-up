@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/nano-collective/json-up#readme
+    about: Check the README and docs/ folder for usage instructions
+  - name: Nano Collective Discord
+    url: https://discord.gg/ktPDV6rekE
+    about: Ask questions or chat with the community in real time

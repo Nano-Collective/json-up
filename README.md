@@ -1,6 +1,17 @@
 # json-up
 
-A fast, type-safe JSON migration tool with Zod schema validation.
+A fast, type-safe JSON migration tool with Zod schema validation — built by the [Nano Collective](https://nanocollective.org), a community collective building AI tooling not for profit, but for the community. Everything we ship is open, transparent, and driven by the people who use it.
+
+---
+
+![Build Status](https://github.com/nano-collective/json-up/raw/main/badges/build.svg)
+![Coverage](https://github.com/nano-collective/json-up/raw/main/badges/coverage.svg)
+![Version](https://github.com/nano-collective/json-up/raw/main/badges/npm-version.svg)
+![NPM Downloads](https://github.com/nano-collective/json-up/raw/main/badges/npm-downloads-monthly.svg)
+![NPM License](https://github.com/nano-collective/json-up/raw/main/badges/npm-license.svg)
+![Repo Size](https://github.com/nano-collective/json-up/raw/main/badges/repo-size.svg)
+![Stars](https://github.com/nano-collective/json-up/raw/main/badges/stars.svg)
+![Forks](https://github.com/nano-collective/json-up/raw/main/badges/forks.svg)
 
 ## Features
 
@@ -79,15 +90,17 @@ const result = await migrateAsync({ state, migrations });
 
 For full documentation, see [docs/index.md](docs/index.md):
 
-- [Getting Started](docs/getting-started.md)
-- [API Reference](docs/api-reference.md)
-- [Error Handling](docs/error-handling.md)
-- [Examples](docs/examples.md)
+- [Getting Started](docs/getting-started/index.md)
+- [API Reference](docs/api-reference/index.md)
+- [Error Handling](docs/error-handling/index.md)
+- [Examples](docs/examples/index.md)
+- [Community](docs/community.md)
 
 ## Community
 
-We're a small community-led team building local and privacy-first AI solutions under the [Nano Collective](https://nanocollective.org).
+We'd love your help. The Nano Collective is a community collective building AI tooling for the community, not for profit.
 
 - [Contributing Guide](CONTRIBUTING.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 - [Discord Server](https://discord.gg/ktPDV6rekE)
 - [GitHub Issues](https://github.com/nano-collective/json-up/issues)

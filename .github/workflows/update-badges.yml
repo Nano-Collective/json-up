@@ -1,0 +1,87 @@
+name: Update Status Badges
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests for latest coverage
+        run: npm run test:ava:coverage || echo "Coverage run failed"
+
+      - name: Extract coverage
+        id: coverage
+        run: |
+          if [ -f "coverage/coverage-summary.json" ]; then
+            COVERAGE=$(jq -r '.total.lines.pct // "N/A"' coverage/coverage-summary.json)
+            echo "percentage=${COVERAGE}" >> "$GITHUB_OUTPUT"
+          else
+            echo "percentage=N/A" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run build to check status
+        id: build
+        run: |
+          if npm run build; then
+            echo "status=passing" >> "$GITHUB_OUTPUT"
+            echo "color=brightgreen" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=failing" >> "$GITHUB_OUTPUT"
+            echo "color=red" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate badges
+        run: |
+          mkdir -p badges
+          PKG="@nanocollective/json-up"
+          REPO="nano-collective/json-up"
+
+          if [ "${{ steps.coverage.outputs.percentage }}" != "N/A" ]; then
+            COVERAGE_PERCENTAGE="${{ steps.coverage.outputs.percentage }}"
+            COVERAGE_COLOR=$(echo "${COVERAGE_PERCENTAGE}" | awk '{print ($1 >= 80) ? "brightgreen" : ($1 >= 50) ? "yellow" : "red"}')
+            curl -s "https://img.shields.io/badge/coverage-${COVERAGE_PERCENTAGE}%25-${COVERAGE_COLOR}?style=for-the-badge" > badges/coverage.svg
+          else
+            curl -s "https://img.shields.io/badge/coverage-N%2FA-lightgrey?style=for-the-badge" > badges/coverage.svg
+          fi
+
+          curl -s "https://img.shields.io/badge/build-${{ steps.build.outputs.status }}-${{ steps.build.outputs.color }}?style=for-the-badge&logo=githubactions" > badges/build.svg
+          curl -s "https://img.shields.io/npm/dm/${PKG}?style=for-the-badge&logo=npm" > badges/npm-downloads-monthly.svg
+          curl -s "https://img.shields.io/npm/l/${PKG}?style=for-the-badge" > badges/npm-license.svg
+          curl -s "https://img.shields.io/npm/v/${PKG}?style=for-the-badge&logo=npm" > badges/npm-version.svg
+          curl -s "https://img.shields.io/github/repo-size/${REPO}?style=for-the-badge&logo=github" > badges/repo-size.svg
+          curl -s "https://img.shields.io/github/stars/${REPO}?style=for-the-badge&logo=github" > badges/stars.svg
+          curl -s "https://img.shields.io/github/forks/${REPO}?style=for-the-badge&logo=github" > badges/forks.svg
+
+      - name: Commit and push badges
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add badges/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update status badges [skip ci]"
+            git push
+          else
+            echo "No badge changes to commit"
+          fi

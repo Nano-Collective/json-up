@@ -1,0 +1,16 @@
+# Default owners for everything in the repo.
+* @mrspence
+
+# Build, test, and configuration files
+package.json @mrspence
+tsconfig.json @mrspence
+biome.json @mrspence
+knip.json @mrspence
+
+# Documentation
+docs/**/* @mrspence
+README.md @mrspence
+CONTRIBUTING.md @mrspence
+
+# GitHub workflows and configurations
+.github/**/* @mrspence

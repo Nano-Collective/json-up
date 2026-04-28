@@ -1,3 +1,9 @@
+---
+title: "Examples"
+description: "Common migration patterns: renaming, defaults, restructuring, async"
+sidebar_order: 4
+---
+
 # Examples
 
 Common migration patterns for transforming JSON data.

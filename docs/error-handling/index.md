@@ -1,3 +1,9 @@
+---
+title: "Error Handling"
+description: "The three error types thrown by migrate() and migrateAsync(), and how to handle them"
+sidebar_order: 3
+---
+
 # Error Handling
 
 json-up provides three error types to help you understand what went wrong during migration. Both `migrate()` and `migrateAsync()` throw the same error types.

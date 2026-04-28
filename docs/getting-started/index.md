@@ -1,3 +1,9 @@
+---
+title: "Getting Started"
+description: "Install json-up, learn the core concepts, and write your first migration"
+sidebar_order: 1
+---
+
 # Getting Started
 
 ## What is json-up?
@@ -15,6 +21,8 @@ A migration describes how to transform data from one version to another. Each mi
 When you call `migrate()`, the library runs each migration in order, starting from your data's current version up to the latest version.
 
 ## Installation
+
+See the [installation guide](./installation.md) for full options. The short version:
 
 ```bash
 npm install @nanocollective/json-up zod
@@ -99,6 +107,6 @@ const result = migrate({
 
 ## Next steps
 
-- [API Reference](./api-reference.md) - Learn about all available functions, including async variants
-- [Error Handling](./error-handling.md) - Handle migration failures gracefully
-- [Examples](./examples.md) - See common migration patterns, including async migrations
+- [API Reference](../api-reference/index.md) - Learn about all available functions, including async variants
+- [Error Handling](../error-handling/index.md) - Handle migration failures gracefully
+- [Examples](../examples/index.md) - See common migration patterns, including async migrations
