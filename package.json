@@ -58,9 +58,9 @@
 		"statements": 0
 	},
 	"ava": {
-		"extensions": {
-			"ts": "module"
-		},
+		"extensions": [
+			"ts"
+		],
 		"nodeArguments": [
 			"--import=tsx"
 		],
