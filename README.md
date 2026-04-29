@@ -91,9 +91,9 @@ const result = await migrateAsync({ state, migrations });
 For full documentation, see [docs/index.md](docs/index.md):
 
 - [Getting Started](docs/getting-started/index.md)
-- [API Reference](docs/api-reference/index.md)
-- [Error Handling](docs/error-handling/index.md)
-- [Examples](docs/examples/index.md)
+- [API Reference](docs/api-reference.md)
+- [Error Handling](docs/error-handling.md)
+- [Examples](docs/examples.md)
 - [Community](docs/community.md)
 
 ## Community

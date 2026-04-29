@@ -1,10 +1,10 @@
 ---
-title: "json-up"
+title: "Introduction"
 description: "Type-safe JSON migration tool with Zod schema validation"
 sidebar_order: 1
 ---
 
-# Documentation
+# Introduction
 
 Welcome to the `json-up` documentation.
 
@@ -20,15 +20,15 @@ Without a migration system, you end up with scattered `if` statements checking f
 
 Start here. Learn what migrations are, install the library, and build your first migration step by step.
 
-### [API Reference](./api-reference/index.md)
+### [API Reference](./api-reference.md)
 
 Complete reference for all functions: `createMigrations()`, `migrate()`, `createMigration()`, and their async counterparts `createAsyncMigrations()`, `migrateAsync()`, `createAsyncMigration()`.
 
-### [Error Handling](./error-handling/index.md)
+### [Error Handling](./error-handling.md)
 
 Understand the three error types (`ValidationError`, `MigrationError`, `VersionError`) and how to handle them in your code.
 
-### [Examples](./examples/index.md)
+### [Examples](./examples.md)
 
 Common patterns: renaming fields, adding defaults, restructuring nested objects, transforming arrays, and more.
 

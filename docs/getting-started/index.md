@@ -107,6 +107,6 @@ const result = migrate({
 
 ## Next steps
 
-- [API Reference](../api-reference/index.md) - Learn about all available functions, including async variants
-- [Error Handling](../error-handling/index.md) - Handle migration failures gracefully
-- [Examples](../examples/index.md) - See common migration patterns, including async migrations
+- [API Reference](../api-reference.md) - Learn about all available functions, including async variants
+- [Error Handling](../error-handling.md) - Handle migration failures gracefully
+- [Examples](../examples.md) - See common migration patterns, including async migrations

@@ -58,4 +58,4 @@ console.log(migrate({ state: {}, migrations }));
 // { _version: 1, hello: "world" }
 ```
 
-If you hit errors, see [Error Handling](../error-handling/index.md) or open an [issue](https://github.com/nano-collective/json-up/issues).
+If you hit errors, see [Error Handling](../error-handling.md) or open an [issue](https://github.com/nano-collective/json-up/issues).

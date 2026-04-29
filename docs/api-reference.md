@@ -129,7 +129,7 @@ const result = migrate({ state, migrations });
 - `MigrationError` - The `up()` function threw an error
 - `ValidationError` - Output didn't match the schema
 
-See [Error Handling](../error-handling/index.md) for details.
+See [Error Handling](./error-handling.md) for details.
 
 ---
 
@@ -173,7 +173,7 @@ Throws the same errors as `migrate()`:
 - `MigrationError` - The `up()` function threw or rejected
 - `ValidationError` - Output didn't match the schema
 
-See [Error Handling](../error-handling/index.md) for details.
+See [Error Handling](./error-handling.md) for details.
 
 ---
 
