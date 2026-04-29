@@ -1,6 +1,6 @@
 # json-up
 
-A fast, type-safe JSON migration tool with Zod schema validation — built by the [Nano Collective](https://nanocollective.org), a community collective building AI tooling not for profit, but for the community. Everything we ship is open, transparent, and driven by the people who use it.
+A fast, type-safe JSON migration tool with Zod schema validation — built by the [Nano Collective](https://nanocollective.org), a community collective building AI tooling not for profit, but for the community. Everything we build is open, transparent, and driven by the people who use it.
 
 ---
 
@@ -98,9 +98,9 @@ For full documentation, see [docs/index.md](docs/index.md):
 
 ## Community
 
-We'd love your help. The Nano Collective is a community collective building AI tooling for the community, not for profit.
+The Nano Collective is a community collective building AI tooling for the community, not for profit. We'd love your help.
 
-- [Contributing Guide](CONTRIBUTING.md)
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Discord Server](https://discord.gg/ktPDV6rekE)
-- [GitHub Issues](https://github.com/nano-collective/json-up/issues)
+- **Contribute**: See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+- **The collective**: [nanocollective.org](https://nanocollective.org) · [docs](https://docs.nanocollective.org) · [GitHub](https://github.com/Nano-Collective) · [Discord](https://discord.gg/ktPDV6rekE)
+- **Support the work**: The [Support page](https://docs.nanocollective.org/collective/organisation/support) covers donations and sponsorship.
+- **Paid contribution**: The [Economics Charter](https://docs.nanocollective.org/collective/organisation/economics-charter) sets out how scoped paid bounties work.

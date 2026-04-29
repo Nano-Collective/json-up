@@ -6,7 +6,7 @@ sidebar_order: 6
 
 # Community
 
-`json-up` is part of the [Nano Collective](https://nanocollective.org) — a community collective building local-first, privacy-respecting AI tooling for the community, not for profit.
+`json-up` is part of the [Nano Collective](/collective) — a community collective building AI tooling for the community, not for profit.
 
 ## Contributing
 
@@ -16,7 +16,7 @@ Quick links:
 
 - **[Open issues](https://github.com/nano-collective/json-up/issues)** — pick one up or file a new one.
 - **[Pull requests](https://github.com/nano-collective/json-up/pulls)** — see what's in flight.
-- **[Code of Conduct](https://github.com/nano-collective/json-up/blob/main/CODE_OF_CONDUCT.md)** — read before participating.
+- **[Code of Conduct](/collective/organisation/community#code-of-conduct)** — read before participating.
 
 ## Discord
 

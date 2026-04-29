@@ -2,7 +2,7 @@
 
 Thanks for your interest in contributing to json-up! We welcome contributions from developers of all skill levels — code, documentation, bug reports, and feature suggestions are all valued.
 
-json-up is part of the [Nano Collective](https://nanocollective.org). By participating, you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+json-up is part of the [Nano Collective](https://nanocollective.org). The Nano Collective's [Code of Conduct](https://docs.nanocollective.org/collective/organisation/community#code-of-conduct) applies to all contributors. Some contribution work is paid via scoped bounties from the community fund — see the [Economics Charter](https://docs.nanocollective.org/collective/organisation/economics-charter) for how that works.
 
 ## Table of Contents
 
@@ -100,7 +100,7 @@ Commit the changelog and version bump together: `git commit -m "release: vX.Y.Z"
 
 ## Stack Divergence
 
-The Nano Collective's [stack suggestions](https://docs.nanocollective.org/collective/stack-suggestions) recommend `pnpm` as the default package manager for TypeScript projects. **json-up uses `npm`** because it is a small, dependency-light library and the marginal benefit of pnpm's content-addressable store is negligible at this scale. If this repo grows or starts adopting workspaces, we'll revisit.
+The Nano Collective's [stack suggestions](https://docs.nanocollective.org/collective/projects/stack-suggestions) recommend `pnpm` as the default package manager for TypeScript projects. **json-up uses `npm`** because it is a small, dependency-light library and the marginal benefit of pnpm's content-addressable store is negligible at this scale. If this repo grows or starts adopting workspaces, we'll revisit.
 
 Everything else (Biome, AVA, Knip, ESM, strict TypeScript) follows the collective's defaults.
 
@@ -108,6 +108,6 @@ Everything else (Biome, AVA, Knip, ESM, strict TypeScript) follows the collectiv
 
 - **GitHub Issues:** bug reports, feature requests, and questions.
 - **Discord:** [Join the Nano Collective Discord](https://discord.gg/ktPDV6rekE) for real-time discussion.
-- **Code of Conduct:** see [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+- **Code of Conduct:** see the [Nano Collective Code of Conduct](https://docs.nanocollective.org/collective/organisation/community#code-of-conduct).
 
 Thanks again — your contributions keep json-up healthy and useful for the community.
