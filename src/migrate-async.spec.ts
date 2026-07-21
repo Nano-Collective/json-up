@@ -291,3 +291,66 @@ test("migrateAsync: null state handling", async (t) => {
 
 	t.deepEqual(result, { _version: 1, initialized: true });
 });
+
+test("migrateAsync: schema validation error does not mutate up() return value or input state", async (t) => {
+	const upReturned = { name: "ab" }; // will fail .min(5)
+
+	const migrations = [
+		{
+			version: 1,
+			schema: z.object({ name: z.string().min(5) }),
+			up: async () => upReturned,
+		},
+	] as const;
+
+	const originalInput = { name: "start" };
+
+	t.false("_version" in upReturned);
+	t.false("_version" in originalInput);
+
+	const error = await t.throwsAsync(
+		() =>
+			migrateAsync({
+				state: originalInput,
+				migrations,
+			}),
+		{ instanceOf: ValidationError },
+	);
+
+	t.is(error?.version, 1);
+
+	t.false(
+		"_version" in upReturned,
+		"up() return value must not be mutated with version key on validation failure (async)",
+	);
+	t.false(
+		"_version" in originalInput,
+		"input state must not be mutated when a migration fails validation (async)",
+	);
+});
+
+test("migrateAsync: schema validation error does not mutate when up() returns same ref", async (t) => {
+	const originalState = { name: "start" };
+
+	const migrations = [
+		{
+			version: 1,
+			schema: z.object({ name: z.string().min(5), extra: z.boolean() }),
+			up: async (state: Record<string, unknown>) => {
+				(state as Record<string, unknown>).mutatedField = true;
+				return state;
+			},
+		},
+	] as const;
+
+	t.false("_version" in originalState);
+
+	await t.throwsAsync(() => migrateAsync({ state: originalState, migrations }), {
+		instanceOf: ValidationError,
+	});
+
+	t.false(
+		"_version" in originalState,
+		"original state must not receive version key on validation failure even if up returned same ref (async)",
+	);
+});
