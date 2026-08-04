@@ -87,9 +87,23 @@ export function migrate<
 			throw new MigrationError(migration.version, error);
 		}
 
-		// Add version to result
+		// Prepare a value for validation by injecting the version key *without*
+		// mutating the object returned by `up()` (or any shared reference such as
+		// a previous currentState). The schemaWithVersion requires the literal
+		// version, so we must provide it for validation. Using a shallow copy
+		// ensures that on ValidationError the caller's objects remain untouched,
+		// and the version key is only present on successfully validated outputs.
+		let toValidate: unknown = result;
 		if (result !== null && typeof result === "object") {
-			(result as Record<string, unknown>)[key] = migration.version;
+			if (Array.isArray(result)) {
+				toValidate = [...result];
+				(toValidate as Record<string, unknown>)[key] = migration.version;
+			} else {
+				toValidate = {
+					...(result as Record<string, unknown>),
+					[key]: migration.version,
+				};
+			}
 		}
 
 		// Validate against schema with version field
@@ -97,7 +111,7 @@ export function migrate<
 			z.object({ [key]: z.literal(migration.version) }),
 		);
 
-		const parseResult = schemaWithVersion.safeParse(result);
+		const parseResult = schemaWithVersion.safeParse(toValidate);
 		if (!parseResult.success) {
 			throw new ValidationError(migration.version, parseResult.error.issues);
 		}
@@ -195,9 +209,23 @@ export async function migrateAsync<
 			throw new MigrationError(migration.version, error);
 		}
 
-		// Add version to result
+		// Prepare a value for validation by injecting the version key *without*
+		// mutating the object returned by `up()` (or any shared reference such as
+		// a previous currentState). The schemaWithVersion requires the literal
+		// version, so we must provide it for validation. Using a shallow copy
+		// ensures that on ValidationError the caller's objects remain untouched,
+		// and the version key is only present on successfully validated outputs.
+		let toValidate: unknown = result;
 		if (result !== null && typeof result === "object") {
-			(result as Record<string, unknown>)[key] = migration.version;
+			if (Array.isArray(result)) {
+				toValidate = [...result];
+				(toValidate as Record<string, unknown>)[key] = migration.version;
+			} else {
+				toValidate = {
+					...(result as Record<string, unknown>),
+					[key]: migration.version,
+				};
+			}
 		}
 
 		// Validate against schema with version field
@@ -205,7 +233,7 @@ export async function migrateAsync<
 			z.object({ [key]: z.literal(migration.version) }),
 		);
 
-		const parseResult = schemaWithVersion.safeParse(result);
+		const parseResult = schemaWithVersion.safeParse(toValidate);
 		if (!parseResult.success) {
 			throw new ValidationError(migration.version, parseResult.error.issues);
 		}
