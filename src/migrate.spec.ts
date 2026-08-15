@@ -318,3 +318,72 @@ test("complex schema transformations", (t) => {
 		users: [{ id: 1, name: "Alice", createdAt: "2024-01-01" }],
 	});
 });
+
+test("schema validation error does not mutate up() return value or input state", (t) => {
+	const upReturned = { name: "ab" }; // will fail .min(5)
+
+	const migrations = [
+		{
+			version: 1,
+			schema: z.object({ name: z.string().min(5) }),
+			up: () => upReturned,
+		},
+	] as const;
+
+	const originalInput = { name: "start" };
+
+	t.false("_version" in upReturned);
+	t.false("_version" in originalInput);
+
+	const error = t.throws(
+		() =>
+			migrate({
+				state: originalInput,
+				migrations,
+			}),
+		{ instanceOf: ValidationError },
+	);
+
+	t.is(error?.version, 1);
+
+	// Critical: no version key should have been written before/during failed validation
+	t.false(
+		"_version" in upReturned,
+		"up() return value must not be mutated with version key on validation failure",
+	);
+	t.false(
+		"_version" in originalInput,
+		"input state must not be mutated when a later migration fails validation",
+	);
+	t.is((upReturned as Record<string, unknown>)._version, undefined);
+	t.is((originalInput as Record<string, unknown>)._version, undefined);
+});
+
+test("schema validation error does not mutate when up() returns same ref as currentState", (t) => {
+	const originalState = { name: "start" };
+
+	const migrations = [
+		{
+			version: 1,
+			schema: z.object({ name: z.string().min(5), extra: z.boolean() }), // missing extra -> fail
+			up: (state: Record<string, unknown>) => {
+				// simulate a mutating up that returns same reference
+				(state as Record<string, unknown>).mutatedField = true;
+				return state;
+			},
+		},
+	] as const;
+
+	t.false("_version" in originalState);
+
+	t.throws(() => migrate({ state: originalState, migrations }), {
+		instanceOf: ValidationError,
+	});
+
+	t.false(
+		"_version" in originalState,
+		"original state must not be dirtied with version key when up() returned same ref and validation failed",
+	);
+	t.is((originalState as Record<string, unknown>)._version, undefined);
+	t.true((originalState as Record<string, unknown>).mutatedField); // other mutations from up() itself are user's responsibility
+});
