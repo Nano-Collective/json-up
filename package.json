@@ -17,8 +17,9 @@
 		"LICENSE"
 	],
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
+	"packageManager": "pnpm@11.0.9",
 	"scripts": {
 		"build": "tsc",
 		"test:all": "./scripts/test.sh",

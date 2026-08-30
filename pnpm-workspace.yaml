@@ -1,0 +1,10 @@
+packages:
+  - .
+
+# Only these dependencies are allowed to run install/build scripts. Nothing
+# runs a postinstall unless it is named here.
+allowBuilds:
+  esbuild: true
+
+onlyBuiltDependencies:
+  - esbuild
