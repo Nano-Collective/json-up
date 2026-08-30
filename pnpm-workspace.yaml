@@ -1,0 +1,18 @@
+packages:
+  - .
+
+# Supply-chain hardening, mirroring the collective's posture (see sentinel
+# and nanocoder).
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+
+# Only these dependencies are allowed to run install/build scripts. Nothing
+# runs a postinstall unless it is named here.
+allowBuilds:
+  esbuild: true
+
+auditConfig: { ignoreGhsas: null }
+
+onlyBuiltDependencies:
+  - esbuild
