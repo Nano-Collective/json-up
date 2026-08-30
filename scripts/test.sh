@@ -2,21 +2,21 @@
 set -e
 
 echo "🔍 Checking formatting..."
-npm run test:format
+pnpm run test:format
 
 echo "📝 Type checking..."
-npm run test:types
+pnpm run test:types
 
 echo "🔎 Linting..."
-npm run test:lint
+pnpm run test:lint
 
 echo "🧪 Running tests with coverage..."
-npm run test:ava:coverage
+pnpm run test:ava:coverage
 
 echo "🔬 Checking for unused exports..."
-npm run test:knip
+pnpm run test:knip
 
 echo "🔒 Auditing dependencies..."
-npm run test:audit || true
+pnpm run test:audit || true
 
 echo "✅ All checks passed!"

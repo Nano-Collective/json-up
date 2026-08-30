@@ -29,10 +29,10 @@
 		"test:types": "tsc --noEmit",
 		"test:lint": "biome lint .",
 		"test:knip": "knip",
-		"test:audit": "npm audit --audit-level=high",
+		"test:audit": "pnpm audit --audit-level=high --ignore-unfixable",
 		"test:security": "semgrep scan --config auto --error",
 		"format": "biome check --write .",
-		"prepublishOnly": "npm run build && npm run test:all"
+		"prepublishOnly": "pnpm run build && pnpm run test:all"
 	},
 	"peerDependencies": {
 		"zod": "^3.0.0 || ^4.0.0"

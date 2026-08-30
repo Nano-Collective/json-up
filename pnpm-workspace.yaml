@@ -6,5 +6,7 @@ packages:
 allowBuilds:
   esbuild: true
 
+auditConfig: { ignoreGhsas: null }
+
 onlyBuiltDependencies:
   - esbuild
