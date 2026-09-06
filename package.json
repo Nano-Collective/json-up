@@ -32,13 +32,16 @@
 		"test:audit": "pnpm audit --audit-level=high --ignore-unfixable",
 		"test:security": "semgrep scan --config auto --error",
 		"format": "biome check --write .",
-		"prepublishOnly": "pnpm run build && pnpm run test:all"
+		"prepublishOnly": "pnpm run build && pnpm run test:all",
+		"changeset": "changeset",
+		"changeset:version": "changeset version"
 	},
 	"peerDependencies": {
 		"zod": "^3.0.0 || ^4.0.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.3.11",
+		"@changesets/cli": "^3.0.1",
 		"@types/node": "^26.1.1",
 		"ava": "^8.0.0",
 		"c8": "^12.0.0",
